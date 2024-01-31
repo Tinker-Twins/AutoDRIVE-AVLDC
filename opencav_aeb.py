@@ -59,7 +59,7 @@ def bridge(sid, data):
         opencav_1.rotZ_command = 0.7833269
         opencav_1.rotW_command = 0.62161
         # Actuator commands (only if cosim_mode==0)
-        if dtc < 15:
+        if dtc < 20:
             opencav_1.throttle_command = 0 # [-1, 1]
             opencav_1.steering_command = 0 # [-1, 1]
             opencav_1.brake_command = 1 # [-1, 1]
