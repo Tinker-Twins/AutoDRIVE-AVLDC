@@ -64,7 +64,7 @@
 
 ### OpenCAV AEB Demo
 
-Execute the `opencav_aeb` Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
+Execute the [`opencav_aeb`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/opencav_aeb.py) Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
 ```bash
 $ cd <path/to/opencav_aeb.py>
 $ python3 opencav_aeb.py
