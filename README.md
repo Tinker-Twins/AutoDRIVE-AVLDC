@@ -64,8 +64,13 @@
 
 ### OpenCAV AEB Demo
 
-Execute the [`opencav_aeb`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/opencav_aeb.py) Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
-```bash
-$ cd <path/to/opencav_aeb.py>
-$ python3 opencav_aeb.py
-```
+1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
+    - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Windows.zip)
+    - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Linux.zip)
+    - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_macOS.zip)
+
+2. Execute the [`opencav_aeb`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/opencav_aeb.py) Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
+    ```bash
+    $ cd <path/to/opencav_aeb.py>
+    $ python3 opencav_aeb.py
+    ```
