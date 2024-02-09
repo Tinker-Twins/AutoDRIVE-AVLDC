@@ -67,8 +67,8 @@ def bridge(sid, data):
         else:
             opencav_1.throttle_command = 0.20 # [-1, 1]
             opencav_1.steering_command = 0 # [-1, 1]
-            opencav_1.brake_command = 0 # [-1, 1]
-            opencav_1.handbrake_command = 0 # [-1, 1]
+            opencav_1.brake_command = 0 # [0, 1]
+            opencav_1.handbrake_command = 0 # [0, 1]
 
         ########################################################################
 
