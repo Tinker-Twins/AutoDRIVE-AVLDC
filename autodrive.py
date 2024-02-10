@@ -407,7 +407,7 @@ class HunterSE:
 # OpenCAV class
 class OpenCAV:
     def __init__(self):
-        # Hunter SE data
+        # OpenCAV SE data
         self.id                       = None
         self.throttle                 = None
         self.steering                 = None

@@ -42,7 +42,7 @@ def bridge(sid, data):
         ########################################################################
 
         dtc = np.linalg.norm(opencav_1.position - np.array([-242.16, -119.00, 341.91]))
-        print(dtc)
+        print("DTC: ", dtc)
 
         ########################################################################
         # CONTROL
@@ -62,8 +62,8 @@ def bridge(sid, data):
         if dtc < 20:
             opencav_1.throttle_command = 0 # [-1, 1]
             opencav_1.steering_command = 0 # [-1, 1]
-            opencav_1.brake_command = 1 # [-1, 1]
-            opencav_1.handbrake_command = 0 # [-1, 1]
+            opencav_1.brake_command = 1 # [0, 1]
+            opencav_1.handbrake_command = 0 # [0, 1]
         else:
             opencav_1.throttle_command = 0.20 # [-1, 1]
             opencav_1.steering_command = 0 # [-1, 1]
