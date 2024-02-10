@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- AEB Function Simulation -->
+  <node pkg="aeb_function" type="aeb_simulation.py" name="aeb_simulation" output="screen"/>
+
+  <!-- Darknet YOLO Detector -->
+  <arg name="launch_prefix" default=""/>
+  <arg name="image" default="/autodrive/opencav_1/right_camera"/>
+  <arg name="yolo_weights_path"          default="$(find darknet_ros)/yolo_network_config/weights"/>
+  <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
+  <arg name="ros_param_file"             default="$(find aeb_function)/config/ros.yaml"/>
+  <arg name="network_param_file"         default="$(find aeb_function)/config/yolov2-tiny.yaml"/>
+  <rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
+  <rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
+  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
+    <param name="weights_path"           value="$(arg yolo_weights_path)"/>
+    <param name="config_path"            value="$(arg yolo_config_path)"/>
+    <remap from="camera/rgb/image_raw"   to="$(arg image)"/>
+  </node>
+
+</launch>
