@@ -1,5 +1,5 @@
 <p align="center">
-<img src="media/logos/AutoDRIVE-Logo.png" alt="AutoDRIVE" height="100"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="media/logos/AVL-Logo.png" alt="Autoware" height="100"/>
+<img src="media/AutoDRIVE-Logo.png" alt="AutoDRIVE" height="100"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="media/AVL-Logo.png" alt="Autoware" height="100"/>
 </p>
 
 ## SETUP
