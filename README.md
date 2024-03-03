@@ -53,11 +53,13 @@
       | numpy | 1.13.3 |
       | pillow | 5.1.0 |
       | opencv-contrib-python | 4.5.1.48 |
+      | scipy | 1.10.1 |
       
       ```bash
       $ pip3 install numpy
       $ pip3 install pillow
       $ pip3 install opencv-contrib-python
+      $ pip3 install scipy
       ```
 
 ## USAGE
