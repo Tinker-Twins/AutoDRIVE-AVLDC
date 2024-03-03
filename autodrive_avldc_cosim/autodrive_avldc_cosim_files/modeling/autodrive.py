@@ -420,7 +420,7 @@ class OpenCAV:
         self.orientation_euler_angles = None
         self.angular_velocity         = None
         self.linear_acceleration      = None
-        self.lidar_pointcloud         = None
+        #self.lidar_pointcloud         = None
         self.front_camera_image       = None
         self.rear_camera_image        = None
         # OpenCAV commands
@@ -455,7 +455,7 @@ class OpenCAV:
         self.angular_velocity = np.fromstring(data[self.id + " Angular Velocity"], dtype=float, sep=' ')
         self.linear_acceleration = np.fromstring(data[self.id + " Linear Acceleration"], dtype=float, sep=' ')
         # LIDAR
-        self.lidar_pointcloud = np.frombuffer(base64.b64decode(data[self.id + " LIDAR Pointcloud"]), dtype=np.uint8)
+        #self.lidar_pointcloud = np.frombuffer(base64.b64decode(data[self.id + " LIDAR Pointcloud"]), dtype=np.uint8)
         # Cameras
         self.left_camera_image = cv2.cvtColor(np.asarray(Image.open(BytesIO(base64.b64decode(data[self.id + " Left Camera Image"])))), cv2.COLOR_RGB2BGR)
         self.right_camera_image = cv2.cvtColor(np.asarray(Image.open(BytesIO(base64.b64decode(data[self.id + " Right Camera Image"])))), cv2.COLOR_RGB2BGR)
@@ -475,7 +475,7 @@ class OpenCAV:
             print('Orientation [Euler Angles]: {} {} {}'.format(self.orientation_euler_angles[0],self.orientation_euler_angles[1],self.orientation_euler_angles[2]))
             print('Angular Velocity: {} {} {}'.format(self.angular_velocity[0],self.angular_velocity[1],self.angular_velocity[2]))
             print('Linear Acceleration: {} {} {}'.format(self.linear_acceleration[0],self.linear_acceleration[1],self.linear_acceleration[2]))
-            print('LIDAR Pointcloud: \n{}'.format(self.lidar_pointcloud))
+            #print('LIDAR Pointcloud: \n{}'.format(self.lidar_pointcloud))
             cv2.imshow(self.id + ' Left Camera Preview', cv2.resize(self.left_camera_image, (640, 360)))
             cv2.imshow(self.id + ' Right Camera Preview', cv2.resize(self.right_camera_image, (640, 360)))
             cv2.waitKey(1)
