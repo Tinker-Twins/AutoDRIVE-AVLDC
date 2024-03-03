@@ -77,10 +77,10 @@ def bridge(sid, data):
             opencav_1.posX_command = struct.unpack('d', shared_mem.buf[0:8])[0]   # Unpack the bytes to float
             opencav_1.posY_command = struct.unpack('d', shared_mem.buf[9:17])[0]  # Unpack the bytes to float
             opencav_1.posZ_command = struct.unpack('d', shared_mem.buf[18:26])[0] # Unpack the bytes to float
-            opencav_1.rotX_command = struct.unpack('d', shared_mem.buf[27:35])[0] # Unpack the bytes to float
-            opencav_1.rotY_command = struct.unpack('d', shared_mem.buf[36:44])[0] # Unpack the bytes to float
-            opencav_1.rotZ_command = struct.unpack('d', shared_mem.buf[45:53])[0] # Unpack the bytes to float
-            opencav_1.rotW_command = struct.unpack('d', shared_mem.buf[54:62])[0] # Unpack the bytes to float
+            opencav_1.rotX_command = quat[0]
+            opencav_1.rotY_command = quat[1]
+            opencav_1.rotZ_command = quat[2]
+            opencav_1.rotW_command = quat[3]
 
             ########################################################################
 
