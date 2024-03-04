@@ -1,0 +1,1 @@
+This directory structure must be preserved for Model.CONNECT.

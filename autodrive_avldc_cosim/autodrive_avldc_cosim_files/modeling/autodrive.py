@@ -409,6 +409,7 @@ class OpenCAV:
     def __init__(self):
         # OpenCAV data
         self.id                       = None
+        self.collision_count          = None
         self.throttle                 = None
         self.steering                 = None
         self.brake                    = None
@@ -420,7 +421,7 @@ class OpenCAV:
         self.orientation_euler_angles = None
         self.angular_velocity         = None
         self.linear_acceleration      = None
-        #self.lidar_pointcloud         = None
+        # self.lidar_pointcloud         = None
         self.front_camera_image       = None
         self.rear_camera_image        = None
         # OpenCAV commands
@@ -436,9 +437,13 @@ class OpenCAV:
         self.steering_command   = None
         self.brake_command      = None
         self.handbrake_command  = None
+        self.headlights_command = None
+        self.indicators_command = None
 
     # Parse OpenCAV sensor data
     def parse_data(self, data, verbose=False):
+        # Collision count
+        self.collision_count = int(data[self.id + " Collisions"])
         # Actuator feedbacks
         self.throttle = float(data[self.id + " Throttle"])
         self.steering = float(data[self.id + " Steering"])
@@ -455,7 +460,7 @@ class OpenCAV:
         self.angular_velocity = np.fromstring(data[self.id + " Angular Velocity"], dtype=float, sep=' ')
         self.linear_acceleration = np.fromstring(data[self.id + " Linear Acceleration"], dtype=float, sep=' ')
         # LIDAR
-        #self.lidar_pointcloud = np.frombuffer(base64.b64decode(data[self.id + " LIDAR Pointcloud"]), dtype=np.uint8)
+        # self.lidar_pointcloud = np.frombuffer(base64.b64decode(data[self.id + " LIDAR Pointcloud"]), dtype=np.uint8)
         # Cameras
         self.left_camera_image = cv2.cvtColor(np.asarray(Image.open(BytesIO(base64.b64decode(data[self.id + " Left Camera Image"])))), cv2.COLOR_RGB2BGR)
         self.right_camera_image = cv2.cvtColor(np.asarray(Image.open(BytesIO(base64.b64decode(data[self.id + " Right Camera Image"])))), cv2.COLOR_RGB2BGR)
@@ -464,6 +469,7 @@ class OpenCAV:
             print('Receive Data from OpenCAV: ' + self.id)
             print('--------------------------------\n')
             # Monitor OpenCAV data
+            print('Collisions: {}'.format(self.collision_count))
             print('Throttle: {}'.format(self.throttle))
             print('Steering: {}'.format(self.steering))
             print('Brake: {}'.format(self.brake))
@@ -475,7 +481,7 @@ class OpenCAV:
             print('Orientation [Euler Angles]: {} {} {}'.format(self.orientation_euler_angles[0],self.orientation_euler_angles[1],self.orientation_euler_angles[2]))
             print('Angular Velocity: {} {} {}'.format(self.angular_velocity[0],self.angular_velocity[1],self.angular_velocity[2]))
             print('Linear Acceleration: {} {} {}'.format(self.linear_acceleration[0],self.linear_acceleration[1],self.linear_acceleration[2]))
-            #print('LIDAR Pointcloud: \n{}'.format(self.lidar_pointcloud))
+            # print('LIDAR Pointcloud: \n{}'.format(self.lidar_pointcloud))
             cv2.imshow(self.id + ' Left Camera Preview', cv2.resize(self.left_camera_image, (640, 360)))
             cv2.imshow(self.id + ' Right Camera Preview', cv2.resize(self.right_camera_image, (640, 360)))
             cv2.waitKey(1)
@@ -498,10 +504,49 @@ class OpenCAV:
             print('Steering Command: {}'.format(self.steering_command))
             print('Brake Command: {}'.format(self.brake_command))
             print('Handbrake Command: {}'.format(self.handbrake_command))
+            if self.headlights_command == 0:
+                headlights_cmd_str = 'Disabled'
+            elif self.headlights_command == 1:
+                headlights_cmd_str = 'Low Beam'
+            elif self.headlights_command == 2:
+                headlights_cmd_str = 'High Beam'
+            elif self.headlights_command == 3:
+                headlights_cmd_str = 'Parking Lights'
+            elif self.headlights_command == 4:
+                headlights_cmd_str = 'Fog Lights'
+            elif self.headlights_command == 5:
+                headlights_cmd_str = 'Low Beam + Parking Lights'
+            elif self.headlights_command == 6:
+                headlights_cmd_str = 'Low Beam + Fog Lights'
+            elif self.headlights_command == 7:
+                headlights_cmd_str = 'High Beam + Parking Lights'
+            elif self.headlights_command == 8:
+                headlights_cmd_str = 'High Beam + Fog Lights'
+            elif self.headlights_command == 9:
+                headlights_cmd_str = 'Parking Lights + Fog Lights'
+            elif self.headlights_command == 10:
+                headlights_cmd_str = 'Low Beam + Parking Lights + Fog Lights'
+            elif self.headlights_command == 11:
+                headlights_cmd_str = 'High Beam + Parking Lights + Fog Lights'
+            else:
+                headlights_cmd_str = 'Invalid'
+            print('Headlights Command: {}'.format(headlights_cmd_str))
+            if self.indicators_command == 0:
+                indicators_cmd_str = 'Disabled'
+            elif self.indicators_command == 1:
+                indicators_cmd_str = 'Left Turn Indicator'
+            elif self.indicators_command == 2:
+                indicators_cmd_str = 'Right Turn Indicator'
+            elif self.indicators_command == 3:
+                indicators_cmd_str = 'Hazard Indicator'
+            else:
+                indicators_cmd_str = 'Invalid'
+            print('Indicators Command: {}'.format(indicators_cmd_str))
         return {str(self.id) + ' CoSim': str(self.cosim_mode),
                 str(self.id) + ' PosX': str(self.posX_command), str(self.id) + ' PosY': str(self.posY_command), str(self.id) + ' PosZ': str(self.posZ_command), 
                 str(self.id) + ' RotX': str(self.rotX_command), str(self.id) + ' RotY': str(self.rotY_command), str(self.id) + ' RotZ': str(self.rotZ_command), str(self.id) + ' RotW': str(self.rotW_command),
-                str(self.id) + ' Throttle': str(self.throttle_command), str(self.id) + ' Steering': str(self.steering_command), str(self.id) + ' Brake': str(self.brake_command), str(self.id) + ' Handbrake': str(self.handbrake_command)}    
+                str(self.id) + ' Throttle': str(self.throttle_command), str(self.id) + ' Steering': str(self.steering_command), str(self.id) + ' Brake': str(self.brake_command), str(self.id) + ' Handbrake': str(self.handbrake_command),
+                str(self.id) + ' Headlights': str(self.headlights_command), str(self.id) + ' Indicators': str(self.indicators_command)}    
 
 ################################################################################
 
@@ -554,3 +599,56 @@ class TrafficLight:
                 command_str = 'Invalid'
             print('Traffic Light Command: {}'.format(command_str))
         return {str(self.id) + ' State': str(self.command)}
+
+################################################################################
+
+# Environment class
+class Environment:
+    def __init__(self):
+        # Environmental conditions
+        self.auto_time = None
+        self.time_scale = None
+        self.time_of_day = None
+        self.weather_id = None
+        self.cloud_intensity = None
+        self.fog_intensity = None
+        self.rain_intensity = None
+        self.snow_intensity = None
+
+    # Set environmental conditions
+    def generate_commands(self, verbose=False):
+        if verbose:
+            print('\n-------------------------------------')
+            print('Set Environmental Conditions:')
+            print('-------------------------------------\n')
+            # Monitor environmental conditions
+            hours = int(self.time_of_day // 60)
+            minutes = int(self.time_of_day % 60)
+            seconds = int((self.time_of_day % 1) * 60)
+            print('Time: {:02d}:{:02d}:{:02d}'.format(hours, minutes, seconds))
+            if self.weather_id == 0:
+                weather_str = 'Custom | Clouds: {}%\tFog: {}%\tRain: {}%\tSnow: {}%'.format(np.round(self.cloud_intensity*100,2),
+                                                                                            np.round(self.fog_intensity*100,2),
+                                                                                            np.round(self.rain_intensity*100,2),
+                                                                                            np.round(self.snow_intensity*1002))
+            elif self.weather_id == 1:
+                weather_str = 'Sunny'
+            elif self.weather_id == 2:
+                weather_str = 'Cloudy'
+            elif self.weather_id == 3:
+                weather_str = 'Light Fog'
+            elif self.weather_id == 4:
+                weather_str = 'Heavy Fog'
+            elif self.weather_id == 5:
+                weather_str = 'Light Rain'
+            elif self.weather_id == 6:
+                weather_str = 'Heavy Rain'
+            elif self.weather_id == 7:
+                weather_str = 'Light Snow'
+            elif self.weather_id == 8:
+                weather_str = 'Heavy Snow'
+            else:
+                weather_str = 'Invalid'
+            print('Weather: {}'.format(weather_str))
+        return {'Auto Time': str(self.auto_time), 'Time Scale': str(self.time_scale), 'Time': str(self.time_of_day), 'Weather': str(self.weather_id),
+                'Clouds': str(self.cloud_intensity), 'Fog': str(self.fog_intensity), 'Rain': str(self.rain_intensity), 'Snow': str(self.snow_intensity)}
