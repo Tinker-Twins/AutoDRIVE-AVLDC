@@ -71,7 +71,7 @@
     - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Linux.zip)
     - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_macOS.zip)  
 
-2. Execute AEB script (a) or (b), which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj).
+2. Launch AutoDRIVE Devkit to execute AEB script (a) or (b), which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj).
 
    (a) Execute the [`aeb_emulation`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/aeb_emulation.py) Python3 script for demonstrating the "emulated" autonomous emergency braking (AEB) function with OpenCAV, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/autodrive.py). This algorithm uses ground truth distance to collision (DTC) metric to trigger AEB.
 
@@ -87,7 +87,11 @@
     $ python3 aeb_stimulation.py
     ```
 
-3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj), which connects to the shared memory created by the AEB script using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/avldc.py).
+3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/avldc.py).
+
+    **Notes:**
+    - Launching AutoDRIVE Devkit alone will print the default value for all the bytes that haven't yet been written to (since they are written by the AVL Model.CONNECT project). The bytes written by the AutoDRIVE Devkit itself will be updated and printed accordingly.
+    - Launching the AVL Model.CONNECT project before the AutoDRIVE Devkit will throw an error since the shared memory has not yet been created.
 
 <table>
 <thead>
