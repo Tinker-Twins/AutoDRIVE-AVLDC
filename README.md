@@ -64,52 +64,52 @@
 
 ## USAGE
 
-### OpenCAV AEB Demo [[Python](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/main/aeb_py)]
+### OpenCAV AEB Demo [[Python](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/devel/aeb_py)]
 
 1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
     - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Windows.zip)
     - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Linux.zip)
     - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_macOS.zip)  
 
-2. Execute the [`opencav_aeb`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/main/aeb_py/opencav_aeb.py) Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
+2. Execute the [`opencav_aeb`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/devel/aeb_py/opencav_aeb.py) Python3 script for demonstrating the automatic emergency braking (AEB) function with OpenCAV, employing the AutoDRIVE Python API.
     ```bash
     $ cd <path/to/opencav_aeb.py>
     $ python3 opencav_aeb.py
     ```
 
 <p align="center">
-<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/OpenCAV-AEB-Python.gif"/>
+<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/devel/media/OpenCAV-AEB-Python.gif"/>
 </p>
 
-### OpenCAV AEB Demo [[ROS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/main/aeb_ros)]
+### OpenCAV AEB Demo [[ROS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/devel/aeb_ros)]
 
 1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
     - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Windows.zip)
     - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Linux.zip)
     - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_macOS.zip)
 
-2. Build the [ROS packages](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/main/aeb_ros) by moving them to the `src` space of your ROS workspace `ros_ws`.
+2. Build the [ROS packages](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/tree/devel/aeb_ros) by moving them to the `src` space of your ROS workspace `ros_ws`.
     ```bash
     $ cd <path/to/ros_ws>
     $ catkin_make -DCMAKE_BUILD_TYPE=Release
     ```
 
-3. Execute the [`aeb_emulation.launch`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/aeb_ros/aeb_function/launch/aeb_emulation.launch) file for demonstrating the automatic emergency braking (AEB) function with OpenCAV in `simulated emulation mode`, employing the AutoDRIVE ROS API.
+3. Execute the [`aeb_emulation.launch`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/devel/aeb_ros/aeb_function/launch/aeb_emulation.launch) file for demonstrating the automatic emergency braking (AEB) function with OpenCAV in `simulated emulation mode`, employing the AutoDRIVE ROS API.
     ```bash
     $ roslaunch autodrive_opencav simulator_bringup_headless.launch
     $ roslaunch aeb_function aeb_emulation.launch
     ```
 
 <p align="center">
-<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/OpenCAV-AEB-ROS-Emulation.gif"/>
+<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/devel/media/OpenCAV-AEB-ROS-Emulation.gif"/>
 </p>
 
-4. Execute the [`aeb_simulation.launch`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/aeb_ros/aeb_function/launch/aeb_simulation.launch) file for demonstrating the automatic emergency braking (AEB) function with OpenCAV in `full simulation mode`, employing the AutoDRIVE ROS API.
+4. Execute the [`aeb_simulation.launch`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/devel/aeb_ros/aeb_function/launch/aeb_simulation.launch) file for demonstrating the automatic emergency braking (AEB) function with OpenCAV in `full simulation mode`, employing the AutoDRIVE ROS API.
     ```bash
     $ roslaunch autodrive_opencav simulator_bringup_headless.launch
     $ roslaunch aeb_function aeb_simulation.launch
     ```
 
 <p align="center">
-<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/OpenCAV-AEB-ROS-Simulation.gif"/>
+<img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/devel/media/OpenCAV-AEB-ROS-Simulation.gif"/>
 </p>
