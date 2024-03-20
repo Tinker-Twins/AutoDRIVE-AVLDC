@@ -67,9 +67,9 @@
 ### OpenCAV AEB Demo
 
 1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
-    - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Windows.zip)
-    - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_Linux.zip)
-    - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v1.0.0/AutoDRIVE_Simulator_macOS.zip)  
+    - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_Windows.zip)
+    - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_Linux.zip)
+    - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_macOS.zip)
 
 2. Launch AutoDRIVE Devkit to execute AEB script (a) or (b), which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj).
 
