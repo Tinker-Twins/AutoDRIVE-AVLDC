@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-
-<launch>
-
-  <!-- AEB Function Emulation -->
-  <node pkg="aeb_function" type="aeb_emulation.py" name="aeb_emulation" output="screen"/>
-
-</launch>
