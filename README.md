@@ -108,3 +108,23 @@
   </tr>
 </tbody>
 </table>
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3" align="left">OpenCAV AEB Demo Result: Stimulation Mode</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Stimulation/AutoDRIVE%20Simulator.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Stimulation/AutoDRIVE%20Devkit.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Stimulation/AVL%20Model.CONNECT.gif"</td>
+  </tr>
+  <tr>
+    <td align="center">AutoDRIVE Simulator</td>
+    <td align="center">AutoDRIVE Devkit</td>
+    <td align="center">AVL Model.CONNECT</td>
+  </tr>
+</tbody>
+</table>
