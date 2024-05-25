@@ -64,6 +64,46 @@
 
 ## USAGE
 
+### OpenCAV Teleoperation Demo
+
+1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
+    - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_Windows.zip)
+    - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_Linux.zip)
+    - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_macOS.zip)
+
+2. Launch AutoDRIVE Devkit to create a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_sim/autodrive_avldc_sim.proj). Execute the [`opencav`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_sim/autodrive_avldc_sim_files/modeling/opencav.py) Python3 script for teleoperating the OpenCAV, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_sim/autodrive_avldc_sim_files/modeling/autodrive.py).
+
+   ```bash
+    $ cd <path/to/opencav.py>
+    $ python3 opencav.py
+    ```
+
+3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_sim/autodrive_avldc_sim.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_sim/autodrive_avldc_sim_files/modeling/avldc.py).
+
+    **Notes:**
+    - Launching AutoDRIVE Devkit alone will print the default value for all the bytes that haven't yet been written to (since they are written by the AVL Model.CONNECT project). The bytes written by the AutoDRIVE Devkit itself will be updated and printed accordingly.
+    - Launching the AVL Model.CONNECT project before the AutoDRIVE Devkit will throw an error since the shared memory has not yet been created.
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3" align="left">OpenCAV Teleoperation Demo Result</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Teleoperation/AutoDRIVE%20Simulator.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Teleoperation/AutoDRIVE%20Devkit.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/Teleoperation/AVL%20Model.CONNECT.gif"</td>
+  </tr>
+  <tr>
+    <td align="center">AutoDRIVE Simulator</td>
+    <td align="center">AutoDRIVE Devkit</td>
+    <td align="center">AVL Model.CONNECT</td>
+  </tr>
+</tbody>
+</table>
+
 ### OpenCAV AEB Demo
 
 1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
