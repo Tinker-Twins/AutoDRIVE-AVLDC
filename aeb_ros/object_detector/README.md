@@ -1,4 +1,4 @@
-# Darknet YOLO with ROS 1
+# Darknet YOLO with ROS
 
 ## Build:
 1. Make a directory `ROS_WS` to act as your ROS 1 workspace.
