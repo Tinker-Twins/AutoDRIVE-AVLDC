@@ -1,15 +1,13 @@
 # Darknet YOLO with ROS 1
 
-![TurtleBot3-YOLO](https://github.com/Tinker-Twins/Autonomy-Science-And-Systems/blob/main/Capstone%20Project/media/stop_sign_detection_real_robot.gif)
-
 ## Build:
-1. Make a directory `ROS1_WS` to act as your ROS 1 workspace.
+1. Make a directory `ROS_WS` to act as your ROS 1 workspace.
     ```bash
-    $ mkdir -p ~/ROS1_WS/src/
+    $ mkdir -p ~/ROS_WS/src/
     ```
-2. Clone this repository:
+2. Clone the repository:
     ```bash
-    $ git clone https://github.com/Tinker-Twins/YOLO-ROS-1.git
+    $ git clone https://github.com/Tinker-Twins/AutoDRIVE-AVLDC.git
     ```
 3. Install [`OpenCV`](https://opencv.org) (or [build from source](https://docs.opencv.org/3.4/d7/d9f/tutorial_linux_install.html)).
     ```bash
@@ -18,18 +16,18 @@
     ```
 4. Build [`boost`](https://www.boost.org).
     ```bash
-    $ cd YOLO-ROS-1/boost
+    $ cd object_detector/boost
     $ ./bootstrap.sh
     $ ./b2 headers
     ```
 5. Build the ROS packages (build in `Release` mode to maximize performance).
     ```bash
-    $ cd ~/ROS1_WS
+    $ cd ~/ROS_WS
     $ catkin_make -DCMAKE_BUILD_TYPE=Release
     ```
-6. Source the `setup.bash` file of your `ROS1_WS`.
+6. Source the `setup.bash` file of your `ROS_WS`.
     ```bash
-    $ echo "source ~/ROS1_WS/devel/setup.bash" >> ~/.bashrc
+    $ echo "source ~/ROS_WS/devel/setup.bash" >> ~/.bashrc
     $ source ~/.bashrc
     ```
 
