@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- AEB Function Simulation -->
+  <node pkg="aeb_function" type="opencav_aeb.py" name="opencav_aeb" output="screen"/>
+
+</launch>
