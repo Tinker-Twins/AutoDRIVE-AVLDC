@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<vsmproject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <vsmversion>
+    <major>4</major>
+    <minor>8</minor>
+    <build>319</build>
+    <patch>0</patch>
+  </vsmversion>
+  <database>.</database>
+  <projectType>Default</projectType>
+  <hardwareID>ABB6900600007340210294006010CC00A394B2010300BF301F0037B06061B9350F520406B300A090FC030010001F03066401</hardwareID>
+  <CustomerId>U0c=</CustomerId>
+  <RaceUserId>SW52YWxpZA==</RaceUserId>
+</vsmproject>
