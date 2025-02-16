@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!-- Platform Bringup Testbed -->
+  <include file="$(find vehicle_platform)/launch/platform.launch">
+    <arg name="use_lidar" value="false" />
+    <arg name="use_camera_fl" value="true" />
+    <arg name="use_camera_fr" value="false" />
+    <arg name="use_radar_fc" value="false" />
+    <arg name="use_gps" value="false" />
+    <arg name="use_dbw" value="true" />
+    <arg name="use_tf" value="false" />
+  </include>
+
+  <!-- AEB Function Testbed -->
+  <node pkg="aeb_function" type="opencav_aeb_testbed.py" name="opencav_aeb_testbed" output="screen"/>
+
+  <!-- Visualization -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find aeb_function)/rviz/aeb_function_testbed.rviz" required="true" />
+
+</launch>
