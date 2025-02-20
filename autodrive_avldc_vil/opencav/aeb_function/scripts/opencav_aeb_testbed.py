@@ -29,8 +29,9 @@
 ################################################################################
 
 import rospy
-from raptor_dbw_msgs.msg import SteeringCmd, AcceleratorPedalCmd, BrakeCmd
 from sensor_msgs.msg import Image
+from std_msgs.msg import Bool
+from raptor_dbw_msgs.msg import SteeringCmd, AcceleratorPedalCmd, BrakeCmd
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
 import cv2
@@ -42,9 +43,14 @@ class OpenCAV_AEB:
     def __init__(self):
         self.cv_bridge = CvBridge()
         self.detection = None
+        self.pub_dbw_command = None
         self.pub_steering_command = None
         self.pub_throttle_command = None
         self.pub_brake_command = None
+        self.dbw_enable_message = Bool()
+        self.steering_message = SteeringCmd()
+        self.throttle_message = AcceleratorPedalCmd()
+        self.brake_message = BrakeCmd()
 
         rospack = rospkg.RosPack()
         pkg_path = rospack.get_path('aeb_function')
@@ -76,10 +82,10 @@ class OpenCAV_AEB:
         # Resize image
         img = cv2.resize(cv_image, (480, 360))
 
-	# Mask ROI
-	x, y, w, h = 0, 0, 480, 320
-	img = img[y:y+h, x:x+w]
-	height, width, channel = img.shape
+        # Mask ROI
+        x, y, w, h = 0, 0, 480, 320
+        img = img[y:y+h, x:x+w]
+        height, width, channel = img.shape
 
         # Detect Objects
         blob = cv2.dnn.blobFromImage(img, 0.00392, (416, 416), (0, 0, 0), True, crop=False)
@@ -116,7 +122,6 @@ class OpenCAV_AEB:
                 label = str(self.classes[class_ids[i]])
                 confidence = np.round(confidences[i]*100, 2)
                 size = w*h
-
                 color = self.colors[i]
                 cv2.rectangle(img, (x, y), (x + w, y + h), color, 2)
                 cv2.putText(img, label, (x, y + 30), font, 3, color, 3)
@@ -128,7 +133,7 @@ class OpenCAV_AEB:
         ########################################################################
 
         # Compute AEB trigger
-        AEB = 1 if (label=="car" and confidence>=50 and size>=1000) else 0
+        AEB = 1 if (label=="car" and confidence>=50 and size>=1200) else 0
 
         # Verbose
         print("AEB: {}".format(AEB))
@@ -138,14 +143,42 @@ class OpenCAV_AEB:
         ########################################################################
 
         # Set commands
-        throttle_command = 0.0 if (AEB==1) else 0.5
-        steering_command = 0.0
-        brake_command = 1.0 if (AEB==1) else 0.0
+        self.steering_command = 0.0
+        self.throttle_command = 0.0 if (AEB==1) else 0.4
+        self.brake_command = 5.0 if (AEB==1) else 0.0
+        
+        # Write steering message
+        self.steering_message.angle_cmd = self.steering_command
+        self.steering_message.angle_velocity = 0.0
+        self.steering_message.enable = True
+        self.steering_message.ignore = False
+        self.steering_message.torque_cmd = 0.0
+        self.steering_message.vehicle_curvature_cmd = 0.0
+        self.steering_message.control_type.value = 1
+        
+        # Write throttle message
+        self.throttle_message.pedal_cmd = self.throttle_command
+        self.throttle_message.torque_cmd = 0.0
+        self.throttle_message.speed_cmd = 0.0
+        self.throttle_message.enable = True
+        self.throttle_message.ignore = False
+        self.throttle_message.road_slope = 0.0
+        self.throttle_message.control_type.value = 0
+        self.throttle_message.accel_limit = 0.0
+        self.throttle_message.accel_positive_jerk_limit = 0.0
+            
+        # Write brake message
+        self.brake_message.pedal_cmd = self.brake_command
+        self.brake_message.enable = True
+        self.brake_message.torque_cmd = 0.0
+        self.brake_message.decel_limit = 0.0
+        self.brake_message.control_type.value = 0
+        self.brake_message.decel_negative_jerk_limit = 0.0
 
         # Publish commands
-        #self.pub_throttle_command.publish(throttle_command)
-        #self.pub_steering_command.publish(steering_command)
-        #self.pub_brake_command.publish(brake_command)
+        self.pub_steering_command.publish(self.steering_message)
+        self.pub_throttle_command.publish(self.throttle_message)
+        self.pub_brake_command.publish(self.brake_message)
 
 ################################################################################
 
@@ -155,10 +188,15 @@ if __name__ == '__main__':
     opencav_aeb_node = OpenCAV_AEB()
 
     rospy.Subscriber("/camera_fl/image_color", Image, opencav_aeb_node.opencav_aeb)
+    
+    opencav_aeb_node.pub_dbw_command = rospy.Publisher('/ne_pacifica/dbw_enabled', Bool, queue_size=1)
     opencav_aeb_node.pub_steering_command = rospy.Publisher('/ne_pacifica/steering_cmd', SteeringCmd, queue_size=1)
     opencav_aeb_node.pub_throttle_command = rospy.Publisher('/ne_pacifica/accelerator_pedal_cmd', AcceleratorPedalCmd, queue_size=1)
     opencav_aeb_node.pub_brake_command = rospy.Publisher('/ne_pacifica/brake_cmd', BrakeCmd, queue_size=1)
+
     rospy.wait_for_message("/camera_fl/image_color", Image)
+    opencav_aeb_node.dbw_enable_message.data = True
+    opencav_aeb_node.pub_dbw_command.publish(opencav_aeb_node.dbw_enable_message)
 
     try:
         while not rospy.is_shutdown():

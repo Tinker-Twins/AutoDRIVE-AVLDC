@@ -23,7 +23,8 @@ catkin_package(
 
 # Install Python executables
 catkin_install_python(PROGRAMS
-  scripts/opencav_aeb.py
+  scripts/opencav_aeb_simulator.py
+  scripts/opencav_aeb_testbed.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
