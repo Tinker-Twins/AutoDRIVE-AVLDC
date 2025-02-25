@@ -30,7 +30,7 @@
 
 import rospy
 from sensor_msgs.msg import Image
-from std_msgs.msg import Bool
+from std_msgs.msg import Empty
 from raptor_dbw_msgs.msg import SteeringCmd, AcceleratorPedalCmd, BrakeCmd
 from cv_bridge import CvBridge, CvBridgeError
 import numpy as np
@@ -43,11 +43,11 @@ class OpenCAV_AEB:
     def __init__(self):
         self.cv_bridge = CvBridge()
         self.detection = None
-        self.pub_dbw_command = None
+        self.pub_dbw_enable_command = None
         self.pub_steering_command = None
         self.pub_throttle_command = None
         self.pub_brake_command = None
-        self.dbw_enable_message = Bool()
+        self.dbw_enable_message = Empty()
         self.steering_message = SteeringCmd()
         self.throttle_message = AcceleratorPedalCmd()
         self.brake_message = BrakeCmd()
@@ -189,14 +189,13 @@ if __name__ == '__main__':
 
     rospy.Subscriber("/camera_fl/image_color", Image, opencav_aeb_node.opencav_aeb)
     
-    opencav_aeb_node.pub_dbw_command = rospy.Publisher('/ne_pacifica/dbw_enabled', Bool, queue_size=1)
+    opencav_aeb_node.pub_dbw_enable_command = rospy.Publisher('/ne_pacifica/enable', Empty, queue_size=1)
     opencav_aeb_node.pub_steering_command = rospy.Publisher('/ne_pacifica/steering_cmd', SteeringCmd, queue_size=1)
     opencav_aeb_node.pub_throttle_command = rospy.Publisher('/ne_pacifica/accelerator_pedal_cmd', AcceleratorPedalCmd, queue_size=1)
     opencav_aeb_node.pub_brake_command = rospy.Publisher('/ne_pacifica/brake_cmd', BrakeCmd, queue_size=1)
 
     rospy.wait_for_message("/camera_fl/image_color", Image)
-    opencav_aeb_node.dbw_enable_message.data = True
-    opencav_aeb_node.pub_dbw_command.publish(opencav_aeb_node.dbw_enable_message)
+    opencav_aeb_node.pub_dbw_enable_command.publish(opencav_aeb_node.dbw_enable_message)
 
     try:
         while not rospy.is_shutdown():
