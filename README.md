@@ -183,6 +183,7 @@
     - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/AutoDRIVE_Simulator_Linux.zip)
     - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/AutoDRIVE_Simulator_macOS.zip)
     - Pure Simulation-Based Verification:
+      - `$ ./AutoDRIVE\ Simulator.x86_64`
       - `$ roslaunch autodrive_opencav simulator_bringup_headless.launch`
       - `$ roslaunch aeb_function opencav_aeb_simulator.launch`
 
