@@ -187,16 +187,16 @@
       - `$ roslaunch autodrive_opencav simulator_bringup_headless.launch`
       - `$ roslaunch aeb_function opencav_aeb_simulator.launch`
 
-2. Launch AutoDRIVE Devkit to visualize real-time DTC and AEB trigger, which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil.proj).
+2. Launch AutoDRIVE Devkit to visualize real-time DTC and AEB trigger, which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/avldc/autodrive_avldc_vil.proj).
 
-   Execute the [`autodrive_avldc`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/autodrive_avldc.py) Python3 script, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/autodrive.py).
+   Execute the [`autodrive_avldc`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/avldc/autodrive_avldc_vil_files/modeling/autodrive_avldc.py) Python3 script, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/avldc/autodrive_avldc_vil_files/modeling/autodrive.py).
 
    ```bash
     $ cd <path/to/autodrive_avldc.py>
     $ python3 autodrive_avldc.py
     ```
 
-3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/avldc.py).
+3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/avldc/autodrive_avldc_vil.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/avldc/autodrive_avldc_vil_files/modeling/avldc.py).
 
     **Notes:**
     - Launching AutoDRIVE Devkit alone will print the default value for all the bytes that haven't yet been written to (since they are written by the AVL Model.CONNECT project). The bytes written by the AutoDRIVE Devkit itself will be updated and printed accordingly.
