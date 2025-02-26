@@ -47,6 +47,18 @@
       $ pip3 install -r requirements_python_3.9.txt # Python 3.9
       $ pip3 install -r requirements_python_3.10.txt # Python 3.10
       ```
+    - Download and install the [Devkit](autodrive_avldc_vil/opencav) on the OpenCAV (running ROS/Autoware):
+
+      - [yolov2-tiny](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/yolov2-tiny.weights)
+      - [yolov2](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/yolov2.weights)
+      - [yolov3-tiny](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/yolov3-tiny.weights)
+      - [yolov3](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/yolov3.weights)
+
+      ```bash
+      $ cd <path/to/autoware_ws>
+      $ catkin_make -DCMAKE_BUILD_TYPE=Release
+      ```
+
 ## USAGE
 
 ### OpenCAV Teleoperation Demo
@@ -96,7 +108,13 @@
     - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_Linux.zip)
     - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/AutoDRIVE_Simulator_macOS.zip)
 
-2. Launch AutoDRIVE Devkit to execute AEB script (a) or (b), which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj).
+2. Download, unzip and copy the model weights to the Devkit directory:
+    - [yolov2-tiny](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/yolov2-tiny.weights)
+    - [yolov2](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/yolov2.weights)
+    - [yolov3-tiny](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/yolov3-tiny.weights)
+    - [yolov3](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.2.0/yolov3.weights)
+
+3. Launch AutoDRIVE Devkit to execute AEB script (a) or (b), which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj).
 
    (a) Execute the [`aeb_emulation`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/aeb_emulation.py) Python3 script for demonstrating the "emulated" autonomous emergency braking (AEB) function with OpenCAV, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/autodrive.py). This algorithm uses ground truth distance to collision (DTC) metric to trigger AEB.
 
@@ -112,7 +130,7 @@
     $ python3 aeb_stimulation.py
     ```
 
-3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/avldc.py).
+4. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_cosim/autodrive_avldc_cosim_files/modeling/avldc.py).
 
     **Notes:**
     - Launching AutoDRIVE Devkit alone will print the default value for all the bytes that haven't yet been written to (since they are written by the AVL Model.CONNECT project). The bytes written by the AutoDRIVE Devkit itself will be updated and printed accordingly.
@@ -154,6 +172,56 @@
     <td align="center">AutoDRIVE Simulator</td>
     <td align="center">AutoDRIVE Devkit</td>
     <td align="center">AVL Model.CONNECT</td>
+  </tr>
+</tbody>
+</table>
+
+### OpenCAV ViL AEB Validation
+
+1. Download, unzip and launch the AutoDRIVE Simulator by referring to the detailed instructions given [here](https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE/tree/AutoDRIVE-Simulator?tab=readme-ov-file#download-and-run):
+    - [Windows](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/AutoDRIVE_Simulator_Windows.zip)
+    - [Linux](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/AutoDRIVE_Simulator_Linux.zip)
+    - [macOS](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/releases/download/v0.3.0/AutoDRIVE_Simulator_macOS.zip)
+    - Pure Simulation-Based Verification:
+      - `$ roslaunch autodrive_opencav simulator_bringup_headless.launch`
+      - `$ roslaunch aeb_function opencav_aeb_simulator.launch`
+
+2. Launch AutoDRIVE Devkit to visualize real-time DTC and AEB trigger, which also creates a shared memory for the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil.proj).
+
+   Execute the [`autodrive_avldc`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/autodrive_avldc.py) Python3 script, employing the [AutoDRIVE Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/autodrive.py).
+
+   ```bash
+    $ cd <path/to/autodrive_avldc.py>
+    $ python3 autodrive_avldc.py
+    ```
+
+3. Launch and run the [AVL Model.CONNECT project](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil.proj), which connects to the shared memory created by the AutoDRIVE Devkit using [AVL Python API](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/autodrive_avldc_vil_files/modeling/avldc.py).
+
+    **Notes:**
+    - Launching AutoDRIVE Devkit alone will print the default value for all the bytes that haven't yet been written to (since they are written by the AVL Model.CONNECT project). The bytes written by the AutoDRIVE Devkit itself will be updated and printed accordingly.
+    - Launching the AVL Model.CONNECT project before the AutoDRIVE Devkit will throw an error since the shared memory has not yet been created.
+
+4. Execute the [`opencav_aeb_testbed.launch`](https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/autodrive_avldc_vil/opencav/aeb_function/launch/opencav_aeb_testbed.launch) file for running the automatic emergency braking (AEB) function with OpenCAV in ViL mode.
+  ```bash
+  $ roslaunch aeb_function opencav_aeb_testbed.launch
+  ```
+
+<table>
+<thead>
+  <tr>
+    <th colspan="3" align="left">OpenCAV ViL AEB Validation Result:</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/ViL%20AEB%20Validation/Testbed.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/ViL%20AEB%20Validation/Simulator.gif"</td>
+    <td align="center"><img src="https://github.com/Tinker-Twins/AutoDRIVE-AVLDC/blob/main/media/ViL%20AEB%20Validation/Devkit.gif"</td>
+  </tr>
+  <tr>
+    <td align="center">Testbed</td>
+    <td align="center">Simulator</td>
+    <td align="center">Devkit</td>
   </tr>
 </tbody>
 </table>
